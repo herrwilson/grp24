@@ -1,0 +1,63 @@
+import add from '../src/add.js';
+
+describe('add.js – Manual tests from Part 1 Test Plan (Group 24)', () => {
+  test('ADD-01: Verify basic addition logic for cart total', () => {
+    expect(add(6, 4)).toBe(10);
+  });
+
+  test('ADD-02: Ensure correct two-decimal precision in price calculations', () => {
+    expect(add(1.23, 1.23)).toBeCloseTo(2.46, 10);
+    expect(add(0.1, 0.2)).toBeCloseTo(0.3, 10);
+  });
+
+  test('ADD-03: Handle non-numeric input gracefully', () => {
+    expect(add('67', 3)).toBe(70);     // coerces string to number
+    expect(add('abc', 5)).toBeNaN();
+  });
+
+  test('ADD-04: Handle undefined input simulating missing cart item price', () => {
+    expect(add(undefined, 15)).toBe(15);
+    expect(add(10, undefined)).toBe(10);
+  });
+
+  test('ADD-05: Prevent silent failure on invalid input types', () => {
+    expect(add(null, 1500)).toBe(1500);  // null → 0
+    expect(add({}, 5)).toBe(5);          // object → 0
+  });
+});
+
+describe('add.js – AI-generated tests (Grok 4)', () => {
+  test('handles negative numbers correctly', () => {
+    expect(add(-10, 25)).toBe(15);
+    expect(add(-5.5, -3.2)).toBeCloseTo(-8.7);
+  });
+
+  test('works with very large numbers', () => {
+    expect(add(Number.MAX_SAFE_INTEGER, 1)).toBe(Number.MAX_SAFE_INTEGER + 1);
+  });
+
+  test('returns NaN when both arguments are non-numeric', () => {
+    expect(add('hello', 'world')).toBeNaN();
+    expect(add([], {})).toBeNaN();
+  });
+
+  test('is commutative', () => {
+    const a = 13.37, b = 42.01;
+    expect(add(a, b)).toBe(add(b, a));
+  });
+});
+
+describe('add.js – Additional exploratory tests', () => {
+  test('zero + zero returns zero', () => {
+    expect(add(0, 0)).toBe(0);
+  });
+
+  test('handles Infinity correctly', () => {
+    expect(add(Infinity, 100)).toBe(Infinity);
+    expect(add(-Infinity, Infinity)).toBeNaN();
+  });
+
+  test('preserves exact integer addition within safe range', () => {
+    expect(add(9007199254740991, 1)).toBe(9007199254740992); // MAX_SAFE_INTEGER
+  });
+});

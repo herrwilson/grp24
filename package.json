@@ -1,14 +1,13 @@
 {
   "name": "software-testing-assignment",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no tests are implemented yet \" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "coverage": "c8 --exclude=\"src/.internal/**\" npm test && c8 report --reporter=html && start coverage/lcov-report/index.html || open coverage/lcov-report/index.html"
   },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "c8": "^9.1.0"
+  }
 }
