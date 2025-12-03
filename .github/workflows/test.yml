@@ -20,9 +20,12 @@ jobs:
         run: npm ci
 
       - name: Run tests + generate coverage
-        run: npx c8 npm test
+        run: npx c8 npm test --reporter=lcov --reporter=text npm test
+        env:
+          NODE_OPTIONS: --experimental-vm-modules
 
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage/lcov.info
