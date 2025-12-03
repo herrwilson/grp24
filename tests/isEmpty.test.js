@@ -42,8 +42,8 @@ describe('isEmpty.js – AI-generated tests (Grok 4)', () => {
   });
 
   test('treats strings with only zero-width characters as non-empty', () => {
-    expect(isEmpty('\uFEFF')).toBe(false);        // BOM
-    expect(isEmpty('\u200D\u200C')).toBe(false);  // joiners
+    expect(isEmpty('\uFEFF')).toBe(false);
+    expect(isEmpty('\u200D\u200C')).toBe(false);
   });
 
   test('treats boolean, number, function as empty (no own enumerable properties)', () => {
@@ -62,12 +62,12 @@ describe('isEmpty.js – Additional exploratory tests', () => {
   test('considers prototype properties irrelevant', () => {
     function Foo() {}
     Foo.prototype.x = 10;
-    expect(isEmpty(new Foo())).toBe(true); // no own enumerable props
+    expect(isEmpty(new Foo())).toBe(true);
   });
 
   test('handles symbols as keys as empty', () => {
     const sym = Symbol('test');
-    expect(isEmpty({ [sym]: 123 })).toBe(true); // symbol key ignored in emptiness check
+    expect(isEmpty({ [sym]: 123 })).toBe(true);
   });
 
   test('numeric edge cases: NaN, Infinity, -Infinity are treated as empty', () => {
@@ -77,13 +77,13 @@ describe('isEmpty.js – Additional exploratory tests', () => {
   });
 
   test('nested structures are not empty if there is a key', () => {
-    expect(isEmpty({ foo: {} })).toBe(false); // has a key → not empty
+    expect(isEmpty({ foo: {} })).toBe(false);
     expect(isEmpty({ foo: [] })).toBe(false);
   });
 
   test('unicode whitespace is NOT treated as empty', () => {
-    expect(isEmpty('\u00A0')).toBe(false);  // non-breaking space
-    expect(isEmpty('\u3000')).toBe(false);  // ideographic space (CJK)
+    expect(isEmpty('\u00A0')).toBe(false);
+    expect(isEmpty('\u3000')).toBe(false);
   });
 
   test('string containing both zero-width and visible characters is NOT empty', () => {
@@ -91,7 +91,7 @@ describe('isEmpty.js – Additional exploratory tests', () => {
   });
 
   test('array-like objects with numeric length behave correctly', () => {
-    expect(isEmpty({ length: 0 })).toBe(false); // has own property
+    expect(isEmpty({ length: 0 })).toBe(false);
     expect(isEmpty({ length: 1, 0: 'a' })).toBe(false);
   });
 
@@ -114,12 +114,12 @@ describe('isEmpty.js – Additional exploratory tests', () => {
   test('object with non-enumerable properties is still treated as empty', () => {
     const obj = {};
     Object.defineProperty(obj, 'x', { value: 10, enumerable: false });
-    expect(isEmpty(obj)).toBe(true); // only enumerable props matter
+    expect(isEmpty(obj)).toBe(true);
   });
 
   test('treats File objects or Blobs as empty (no enumerable props)', () => {
     if (typeof Blob === 'undefined') {
-      return; // Node env: nothing to test
+      return;
     }
     const blob = new Blob(['hello']);
     expect(isEmpty(blob)).toBe(true);

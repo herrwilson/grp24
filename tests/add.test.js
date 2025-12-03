@@ -21,8 +21,8 @@ describe('add.js – Manual tests from Part 1 Test Plan (Group 24)', () => {
   });
 
   test('ADD-05: Prevent silent failure on invalid input types', () => {
-    expect(add(null, 1500)).toBe(1500); // null → 0
-    expect(add({}, 5)).toBeNaN();       // current implementation: NaN
+    expect(add(null, 1500)).toBe(1500);
+    expect(add({}, 5)).toBeNaN();
   });
 });
 
@@ -61,7 +61,7 @@ describe('add.js – Additional exploratory tests', () => {
 
   test('preserves exact integer addition within safe range', () => {
     expect(add(9007199254740991, 1))
-      .toBe(9007199254740992); // MAX_SAFE_INTEGER
+      .toBe(9007199254740992);
   });
 
   test('single argument: missing addend is treated as 0', () => {
