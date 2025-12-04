@@ -11,4 +11,20 @@ describe('filter.js – Unit tests (Must)', () => {
     expect(filter(null, () => true)).toEqual([[]]);
     expect(filter(undefined, () => true)).toEqual([[]]);
   });
+
+  test('works with simple numeric arrays', () => {
+    const nums = [1, 2, 3, 4, 5];
+    const evens = filter(nums, n => n % 2 === 0);
+    expect(evens).toEqual([2, 4]);
+  });
+
+  test('does not mutate the original array', () => {
+    const nums = [1, 2, 3];
+    const copy = [...nums];
+
+    const res = filter(nums, n => n > 1);
+
+    expect(res).toEqual([2, 3]);
+    expect(nums).toEqual(copy);
+  });
 });
