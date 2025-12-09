@@ -8,6 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,10 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Run ONLY actual tests (expected/ directory is ignored)
       - name: Run tests and generate coverage
         run: |
-          npx c8 --reporter=lcov --reporter=text npm test
-          cat coverage/lcov.info > /tmp/lcov.info
+          npx c8 --reporter=lcov --reporter=text npx jest --testPathIgnorePatterns="tests/expected"
+          cp coverage/lcov.info /tmp/lcov.info
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
