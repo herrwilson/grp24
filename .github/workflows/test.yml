@@ -21,13 +21,14 @@ jobs:
         run: npm ci
 
       - name: Run actual tests and generate coverage
-        run: |
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage --testPathPattern="tests/actual"
-          cp coverage/lcov.info /tmp/lcov.info
-      
+        run: npx jest --testPathPattern="tests/actual"
+
       - name: Run expected tests (intentional failures)
         run: |
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathPattern="tests/expected" || true
+          npx jest --coverage --testPathPattern="tests/expected" || true
+
+      - name: Copy coverage report
+        run: cp coverage/lcov.info /tmp/lcov.info
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
@@ -35,3 +36,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
+
