@@ -1,14 +1,14 @@
-import eq from '../src/eq.js';
+import eq from '../../src/eq.js';
 
 describe('eq.js – Unit tests (Should)', () => {
-  test('performs SameValueZero comparison', () => {
+  test('EQ-001: performs SameValueZero comparison', () => {
     expect(eq(NaN, NaN)).toBe(true);
     expect(eq('a', Object('a'))).toBe(true);
     const obj = {}; 
     expect(eq(obj, obj)).toBe(true);
   });
 
-    test('compares primitive values correctly', () => {
+    test('EQ-002: compares primitive values correctly', () => {
     expect(eq(1, 1)).toBe(true);
     expect(eq('foo', 'foo')).toBe(true);
     expect(eq(true, true)).toBe(true);
@@ -18,14 +18,14 @@ describe('eq.js – Unit tests (Should)', () => {
     expect(eq(true, false)).toBe(false);
   });
 
-   test('treats wrapper objects consistently with primitives', () => {
+   test('EQ-003: treats wrapper objects consistently with primitives', () => {
     expect(eq('a', Object('a'))).toBe(true);
 
     const numObj = Object(5);
     expect(eq(5, numObj)).toBe(true);
   });
 
-  test('compares object references, not structure', () => {
+  test('EQ-004: compares object references, not structure', () => {
     const obj1 = { id: 1 };
     const obj2 = { id: 1 };
     const sameRef = obj1;
@@ -34,7 +34,7 @@ describe('eq.js – Unit tests (Should)', () => {
     expect(eq(obj1, obj2)).toBe(false);     // different objects with same shape
   });
 
-  test('is reflexive and symmetric', () => {
+  test('EQ-005: is reflexive and symmetric', () => {
     const obj = { x: 1 };
 
     expect(eq(obj, obj)).toBe(true);

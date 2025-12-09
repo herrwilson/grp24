@@ -1,15 +1,15 @@
-import map from '../src/map.js';
+import map from '../../src/map.js';
 
 describe('map.js – Unit tests (Could)', () => {
-  test('creates array of iteratee results', () => {
+  test('MAP-001: creates array of iteratee results', () => {
     expect(map([4, 8], n => n * n)).toEqual([16, 64]);
   });
 
-  test('returns empty array for null/undefined', () => {
+  test('MAP-002: returns empty array for null/undefined', () => {
     expect(map(null, x => x)).toEqual([]);
   });
 
-  test('does not mutate the original array', () => {
+  test('MAP-003: does not mutate the original array', () => {
     const arr = [1, 2, 3];
     const copy = [...arr];
 
@@ -19,10 +19,9 @@ describe('map.js – Unit tests (Could)', () => {
     expect(arr).toEqual(copy);
   });
 
-  test('maps over strings as array-like (if supported)', () => {
+  test('MAP-004: maps over strings as array-like (if supported)', () => {
     // Adjust expectation to actual behaviour if needed
     expect(map('abc', ch => ch.toUpperCase())).toEqual(['A', 'B', 'C']);
   });
-
-
+  
 });

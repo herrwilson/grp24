@@ -1,24 +1,24 @@
-import filter from '../src/filter.js';
+import filter from '../../src/filter.js';
 
 describe('filter.js – Unit tests (Must)', () => {
   const users = [{ user: 'barney', active: true }, { user: 'fred', active: false }];
 
-  test('returns array of elements where predicate is truthy', () => {
+  test('FIL-001: returns array of elements where predicate is truthy', () => {
     expect(filter(users, o => o.active)).toEqual([{ user: 'barney', active: true }]);
   });
 
-  test('returns empty array-like structure for null/undefined input', () => {
+  test('FIL-002: returns empty array-like structure for null/undefined input', () => {
     expect(filter(null, () => true)).toEqual([[]]);
     expect(filter(undefined, () => true)).toEqual([[]]);
   });
 
-  test('works with simple numeric arrays', () => {
+  test('FIL-003: works with simple numeric arrays', () => {
     const nums = [1, 2, 3, 4, 5];
     const evens = filter(nums, n => n % 2 === 0);
     expect(evens).toEqual([2, 4]);
   });
 
-  test('does not mutate the original array', () => {
+  test('FIL-004: does not mutate the original array', () => {
     const nums = [1, 2, 3];
     const copy = [...nums];
 
