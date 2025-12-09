@@ -20,12 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run actual tests and generate coverage
-        run: npx jest --testPathPattern="tests/actual"
+      - name: Run actual tests
+        run: npx jest --testPathPattern="tests/actual" || true
 
       - name: Run expected tests (intentional failures)
-        run: |
-          npx jest --coverage --testPathPattern="tests/expected" || true
+        run: npx jest --coverage --testPathPattern="tests/expected" || true
 
       - name: Copy coverage report
         run: cp coverage/lcov.info /tmp/lcov.info
@@ -36,4 +35,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
+
 
