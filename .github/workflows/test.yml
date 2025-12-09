@@ -22,7 +22,7 @@ jobs:
 
       - name: Run actual tests and generate coverage
         run: |
-          npx c8 --reporter=lcov --reporter=text node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/actual/**/*.test.js
+          npx jest --coverage --testPathPattern="tests/actual" --reporters=default --reporters=jest-junit
           cp coverage/lcov.info /tmp/lcov.info
       
       - name: Run expected tests (intentional failures)
