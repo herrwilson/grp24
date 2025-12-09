@@ -22,7 +22,7 @@ jobs:
 
       - name: Run actual tests and generate coverage
         run: |
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathPattern="tests/actual"
+          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage --testPathPattern="tests/actual"
           cp coverage/lcov.info /tmp/lcov.info
       
       - name: Run expected tests (intentional failures)
