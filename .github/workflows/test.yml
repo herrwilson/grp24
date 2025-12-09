@@ -15,19 +15,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run actual tests and generate coverage
         run: |
-          npx jest --coverage --testPathPattern="tests/actual" --reporters=default
+          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathPattern="tests/actual"
           cp coverage/lcov.info /tmp/lcov.info
       
       - name: Run expected tests (intentional failures)
         run: |
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/expected/**/*.test.js || true
+          node --experimental-vm-modules ./node_modules/jest/bin/jest.js --testPathPattern="tests/expected" || true
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
@@ -35,4 +35,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
-

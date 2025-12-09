@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
     "coverage": "c8 --exclude=\"src/.internal/**\" npm test && c8 report --reporter=html && start coverage/lcov-report/index.html || open coverage/lcov-report/index.html"
   },
   "devDependencies": {
