@@ -22,15 +22,12 @@ jobs:
 
       - name: Run actual tests and generate coverage
         run: |
-          # Use Node ESM mode for Jest
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/actual/**/*.test.js --coverage
+          npx c8 --reporter=lcov --reporter=text node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/actual/**/*.test.js
           cp coverage/lcov.info /tmp/lcov.info
       
       - name: Run expected tests (intentional failures)
         run: |
-          # Run expected tests in ESM mode; ignore failures
-          node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/expected/**/*.test.js
-        continue-on-error: true
+          node --experimental-vm-modules ./node_modules/jest/bin/jest.js tests/expected/**/*.test.js || true
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
@@ -38,3 +35,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
+
