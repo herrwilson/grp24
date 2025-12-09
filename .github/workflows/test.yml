@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -21,22 +20,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: run actual tests
-        run: npx jest --testPathPattern="tests/actual"
+      - name: Run actual tests (bug-demonstration tests)
+        run: npm test -- --testPathPattern="tests/actual"
 
-      - name: run expected tests and generate coverage
-        run: npx jest --coverage --testPathPattern="tests/expected" || true
+      - name: Run expected tests (some intentionally fail)
+        run: npm test -- --coverage --testPathPattern="tests/expected" || true
 
       - name: Copy coverage report
-        run: cp coverage/lcov.info /tmp/lcov.info || echo "No coverage report generated"
+        run: cp coverage/lcov.info /tmp/lcov.info
 
       - name: Upload to Coveralls
         uses: coverallsapp/github-action@v2
-        continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
+
 
 
 
