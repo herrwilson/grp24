@@ -23,7 +23,7 @@ jobs:
       # Run ONLY actual tests (expected/ directory is ignored)
       - name: Run tests and generate coverage
         run: |
-          npx c8 --reporter=lcov --reporter=text npx jest --testPathIgnorePatterns="tests/expected"
+          npx c8 --reporter=lcov --reporter=text npm test
           cp coverage/lcov.info /tmp/lcov.info
 
       - name: Upload to Coveralls
