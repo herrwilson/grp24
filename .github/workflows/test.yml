@@ -24,7 +24,7 @@ jobs:
         run: npm test -- --testPathPattern="tests/actual"
 
       - name: Run expected tests (some intentionally fail)
-        run: npm test -- --coverage --testPathPattern="tests/expected" || true
+        run: npm test -- --coverage --testPathPattern="tests/expected" --passWithNoTests
 
       - name: Copy coverage report
         run: cp coverage/lcov.info /tmp/lcov.info
@@ -35,7 +35,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
-
 
 
 
