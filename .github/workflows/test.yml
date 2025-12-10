@@ -24,7 +24,8 @@ jobs:
         run: npm test -- --testPathPattern="tests/actual"
 
       - name: Run expected tests (some intentionally fail)
-        run: npm test -- --coverage --testPathPattern="tests/expected" --passWithNoTests
+        run: npm test -- --coverage --testPathPattern="tests/expected"
+        continue-on-error: true
 
       - name: Copy coverage report
         run: cp coverage/lcov.info /tmp/lcov.info
