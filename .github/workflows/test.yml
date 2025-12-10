@@ -23,7 +23,7 @@ jobs:
       - name: Run actual tests (bug-demonstration tests)
         run: npm test -- --testPathPattern="tests/actual"
 
-      - name: Run expected tests (some intentionally fail)
+      - name: Run expected tests with coverage
         run: npm test -- --coverage --testPathPattern="tests/expected"
         continue-on-error: true
 
@@ -36,6 +36,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: /tmp/lcov.info
           flag-name: run-${{ github.run_id }}
+
 
 
 

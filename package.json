@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "coverage": "c8 --exclude=\"src/.internal/**\" npm test && c8 report --reporter=html && start coverage/lcov-report/index.html || open coverage/lcov-report/index.html"
+    "coverage": "npm test -- --coverage --testPathPattern='tests/expected' && open coverage/index.html"
   },
   "devDependencies": {
-    "jest": "^29.7.0",
-    "c8": "^9.1.0"
+    "jest": "^29.7.0"
   }
 }
+
